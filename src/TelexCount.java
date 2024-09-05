@@ -1,10 +1,12 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TelexCount {
     // Định nghĩa các mẫu Telex và các chữ cái tương ứng
     private static final Map<String, String> telexMap = new HashMap<>();
-
+    private static List<String> foundTelex = new ArrayList<>();
     static {
         telexMap.put("aw", "ă");
         telexMap.put("aa", "â");
@@ -26,6 +28,7 @@ public class TelexCount {
             if (i < input.length() - 1) {
                 String twoChar = input.substring(i, i + 2);
                 if (telexMap.containsKey(twoChar)) {
+                    foundTelex.add(twoChar);
                     count++;
                     i += 2; // Nhảy qua cặp ký tự này để tránh lặp lại
                     continue;
@@ -35,6 +38,7 @@ public class TelexCount {
             // Kiểm tra trường hợp ký tự đơn lẻ
             String oneChar = input.substring(i, i + 1);
             if (telexMap.containsKey(oneChar)) {
+                foundTelex.add(oneChar);
                 count++;
             }
 
@@ -46,8 +50,8 @@ public class TelexCount {
     }
 
     public static void main(String[] args) {
-        String input = "hwfdawhwhcoomddfgwdc";
+        String input = "hwfdawhwhcoomddfgwdcoo";
         int result = countVietnameseAccents(input);
-        System.out.println("Số lượng chữ cái có dấu: " + result);
+        System.out.println("Số lượng chữ cái có dấu: " + result + foundTelex);
     }
 }
