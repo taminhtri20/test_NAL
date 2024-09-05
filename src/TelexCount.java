@@ -18,15 +18,16 @@ public class TelexCount {
     // Hàm đếm số lượng các chữ cái có dấu trong chuỗi nhập vào
     public static int countVietnameseAccents(String input) {
         int count = 0;
+        int i = 0;
 
-        // Duyệt qua chuỗi và tìm các cặp ký tự hoặc ký tự đơn thuộc bảng Telex
-        for (int i = 0; i < input.length(); i++) {
+        // Sử dụng vòng lặp while để duyệt qua chuỗi
+        while (i < input.length()) {
             // Kiểm tra trường hợp cặp 2 ký tự
             if (i < input.length() - 1) {
                 String twoChar = input.substring(i, i + 2);
                 if (telexMap.containsKey(twoChar)) {
                     count++;
-                    i++; // Nhảy qua cặp ký tự này để tránh lặp lại
+                    i += 2; // Nhảy qua cặp ký tự này để tránh lặp lại
                     continue;
                 }
             }
@@ -36,6 +37,9 @@ public class TelexCount {
             if (telexMap.containsKey(oneChar)) {
                 count++;
             }
+
+            // Tăng chỉ số để tiếp tục duyệt
+            i++;
         }
 
         return count;
